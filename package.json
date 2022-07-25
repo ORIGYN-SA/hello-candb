@@ -1,0 +1,16 @@
+{
+  "name": "candb-actor-template",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "generate": "node tools/generate.js",
+    "generate-declarations": "dfx generate && ./comment_last_line.sh",
+    "copy-declarations": "rm -r frontend/declarations && cp -r src/declarations frontend/declarations",
+    "refresh-declarations": "npm run generate-declarations && npm run copy-declarations"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "generate-template-files": "^3.2.1"
+  }
+}
