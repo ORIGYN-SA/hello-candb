@@ -65,8 +65,8 @@ shared ({caller = owner}) actor class IndexCanister() = this {
   // Spins up a new HelloService canister with the provided pk and controllers
   func createHelloServiceCanister(pk: Text, controllers: ?[Principal]): async Text {
     Debug.print("creating new hello service canister with pk=" # pk);
-    // Pre-load 3 billion cycles for the creation of a new Hello Service canister
-    // Note that canister creation costs 1 billion cycles, meaning there are 2 billion
+    // Pre-load 300 billion cycles for the creation of a new Hello Service canister
+    // Note that canister creation costs 100 billion cycles, meaning there are 200 billion
     // left over for the new canister when it is created
     Cycles.add(300_000_000_000);
     let newHelloServiceCanister = await HelloService.HelloService({
