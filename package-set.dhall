@@ -14,7 +14,7 @@ let packages = [
   },
   { name = "candb"
   , repo = "https://github.com/canscale/candb"
-  , version = "0.0.0-alpha.0"
+  , version = "alpha"
   , dependencies = [ "base" ]
   },
 ]

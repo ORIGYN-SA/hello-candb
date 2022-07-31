@@ -73,8 +73,7 @@ shared ({caller = owner}) actor class IndexCanister() = this {
       partitionKey = pk;
       scalingOptions = {
         autoScalingCanisterId = Principal.toText(Principal.fromActor(this));
-        limit = 200_000_000; // Scale out at 200MB
-        limitType = #heapSize; // Scale out based on the canister heap size
+        sizeLimit = #heapSize(200_000_000); // Scale out at 200MB
       };
       owners = controllers;
     });
