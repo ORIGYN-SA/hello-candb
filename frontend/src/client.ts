@@ -20,7 +20,7 @@ export function intializeIndexClient(isLocal: boolean): IndexClient<IndexCaniste
   })
 };
 
-export function initializeCommentClient(isLocal: boolean, indexClient: IndexClient<IndexCanister>): ActorClient<IndexCanister, HelloService> {
+export function initializeHelloServiceClient(isLocal: boolean, indexClient: IndexClient<IndexCanister>): ActorClient<IndexCanister, HelloService> {
   const host = isLocal ? "http://127.0.0.1:8000" : "https://ic0.app";
   return new ActorClient<IndexCanister, HelloService>({
     actorOptions: {

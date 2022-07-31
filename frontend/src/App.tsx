@@ -1,10 +1,10 @@
 import * as React from "react";
 import { greetUser, putUser } from "./api";
-import { initializeCommentClient, intializeIndexClient } from "./client";
+import { initializeHelloServiceClient, intializeIndexClient } from "./client";
 
 const isLocal = true;
 const indexClient = intializeIndexClient(isLocal);
-const commentClient = initializeCommentClient(isLocal, indexClient);
+const helloServiceClient = initializeHelloServiceClient(isLocal, indexClient);
 
 export default function App() {
   let [greetName, setGreetName] = React.useState("");
@@ -22,7 +22,7 @@ export default function App() {
       setGreetErrorText(errorText)
     } else {
       setGreetErrorText("");
-      let greeting = await greetUser(commentClient, region, greetName)
+      let greeting = await greetUser(helloServiceClient, region, greetName)
       console.log("response", greeting)
       setGreetingResponse(greeting);
     }
@@ -38,7 +38,7 @@ export default function App() {
       // create the canister for the partition key if not sure that is exists
       await indexClient.indexCanisterActor.createHelloServiceCanisterByRegion(region);
       // create the new user
-      putUser(commentClient, region, name, zipCode);
+      putUser(helloServiceClient, region, name, zipCode);
     }
   }
 
