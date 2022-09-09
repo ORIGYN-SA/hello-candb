@@ -10,7 +10,7 @@ import { HelloService } from "../declarations/helloservice/helloservice.did";
 export function intializeIndexClient(isLocal: boolean): IndexClient<IndexCanister> {
   const host = isLocal ? "http://127.0.0.1:8000" : "https://ic0.app";
   // canisterId of your index canister
-  const canisterId = isLocal ? "wflfh-4yaaa-aaaaa-aaata-cai" : "<prod_canister_id>";
+  const canisterId = isLocal ? process.env.INDEX_CANISTER_ID : "<prod_canister_id>";
   return new IndexClient<IndexCanister>({
     IDL: IndexCanisterIDL,
     canisterId, 

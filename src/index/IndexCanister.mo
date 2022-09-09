@@ -43,6 +43,7 @@ shared ({caller = owner}) actor class IndexCanister() = this {
   /// If the developer does not utilize this method, auto-scaling will NOT work
   public shared({caller = caller}) func createAdditionalCanisterForPK(pk: Text): async Text {
     if (Text.startsWith(pk, #text("region"))) {
+      Debug.print("creating an additional canister for pk=" # pk);
       await createHelloServiceCanister(pk, ?[owner, Principal.fromActor(this)])
     } else {
       throw Error.reject("creation of additional canister case not covered");
@@ -74,6 +75,8 @@ shared ({caller = owner}) actor class IndexCanister() = this {
       scalingOptions = {
         autoScalingCanisterId = Principal.toText(Principal.fromActor(this));
         sizeLimit = #heapSize(200_000_000); // Scale out at 200MB
+        // for auto-scaling testing
+        //sizeLimit = #count(3); // Scale out at 3 entities inserted
       };
       owners = controllers;
     });
@@ -94,5 +97,5 @@ shared ({caller = owner}) actor class IndexCanister() = this {
 
     Debug.print("new hello service canisterId=" # newHelloServiceCanisterId);
     newHelloServiceCanisterId;
-  }
+  };
 }

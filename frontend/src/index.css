@@ -1,0 +1,25 @@
+
+h1 {
+  width: fit-content;
+  margin: 0 auto 30px;
+}
+
+.section-wrapper {
+  width: fit-content;
+  margin: 50px auto;
+}
+
+.flex-wrapper {
+  display: flex;
+  justify-content: left;
+  margin: 10px 0px;
+  width: 650px;
+}
+
+.prompt-text {
+  width: 180px;
+}
+
+.left-margin {
+  margin-left: 15px;
+}
