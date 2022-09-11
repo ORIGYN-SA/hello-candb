@@ -40,8 +40,8 @@ shared ({ caller = owner }) actor class HelloService({
 
     switch(user) {
       case null { null };
-      case (?{ name; displayName }) {
-        ?("Hello " # name # " from " # displayName # " in " # db.pk);
+      case (?u) {
+        ?("Hello " # u.displayName # " from " # db.pk);
       }
     }
   };
