@@ -42,7 +42,7 @@ shared ({caller = owner}) actor class IndexCanister() = this {
   ///
   /// If the developer does not utilize this method, auto-scaling will NOT work
   public shared({caller = caller}) func createAdditionalCanisterForPK(pk: Text): async Text {
-    if (Text.startsWith(pk, #text("region"))) {
+    if (Text.startsWith(pk, #text("group"))) {
       Debug.print("creating an additional canister for pk=" # pk);
       await createHelloServiceCanister(pk, ?[owner, Principal.fromActor(this)])
     } else {
@@ -50,15 +50,15 @@ shared ({caller = owner}) actor class IndexCanister() = this {
     };
   };
 
-  // Partition HelloService canisters by the region passed in
-  public shared({caller = creator}) func createHelloServiceCanisterByRegion(region: Text): async ?Text {
-    let pk = "region#" # region;
+  // Partition HelloService canisters by the group passed in
+  public shared({caller = creator}) func createHelloServiceCanisterByGroup(group: Text): async ?Text {
+    let pk = "group#" # group;
     let canisterIds = getCanisterIdsIfExists(pk);
     if (canisterIds == []) {
       ?(await createHelloServiceCanister(pk, ?[owner, Principal.fromActor(this)]));
-    // already exists
+    // the partition already exists, so don't create a new canister
     } else {
-      Debug.print(pk # " already exists, not creating and returning null");
+      Debug.print(pk # " already exists");
       null 
     };
   };

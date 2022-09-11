@@ -2,8 +2,8 @@ import { ActorClient } from "candb-client-typescript/dist/ActorClient";
 import { HelloService } from "../declarations/helloservice/helloservice.did";
 import { IndexCanister } from "../declarations/index/index.did";
 
-export async function greetUser(helloServiceClient: ActorClient<IndexCanister, HelloService>, region: string, name: string) {
-  let pk = `region#${region}`;
+export async function greetUser(helloServiceClient: ActorClient<IndexCanister, HelloService>, group: string, name: string) {
+  let pk = `group#${group}`;
   let userGreetingQueryResults = await helloServiceClient.query<HelloService["greetUser"]>(
     pk,
     (actor) => actor.greetUser(name)
@@ -20,12 +20,12 @@ export async function greetUser(helloServiceClient: ActorClient<IndexCanister, H
   return "User does not exist";
 };
 
-export async function putUser(helloServiceClient: ActorClient<IndexCanister, HelloService>, region: string, name: string, zipCode: string) {
-  let pk = `region#${region}`;
+export async function putUser(helloServiceClient: ActorClient<IndexCanister, HelloService>, group: string, name: string, nickname: string) {
+  let pk = `group#${group}`;
   let sk = name;
   await helloServiceClient.update<HelloService["putUser"]>(
     pk,
     sk,
-    (actor) => actor.putUser(sk, zipCode)
+    (actor) => actor.putUser(sk, nickname)
   );
 }

@@ -40,8 +40,8 @@ shared ({ caller = owner }) actor class HelloService({
 
     switch(user) {
       case null { null };
-      case (?{ name; zipCode }) {
-        ?("Hello " # name # " from " # zipCode # " in " # db.pk);
+      case (?{ name; displayName }) {
+        ?("Hello " # name # " from " # displayName # " in " # db.pk);
       }
     }
   };
@@ -49,35 +49,35 @@ shared ({ caller = owner }) actor class HelloService({
   // Create a new user. In this basic case, we're using the user's name as the sort key
   // This works for our hello world app, but as names are easily duplicated, one might want
   // to attach an unique identifier to the sk to separate users with the same name
-  public func putUser(name: Text, zipCode: Text): async () {
-    if (name == "" or zipCode == "") { return };
+  public func putUser(name: Text, displayName: Text): async () {
+    if (name == "" or displayName == "") { return };
 
     // inserts the entity into CanDB
     await CanDB.put(db, {
       sk = name;
       attributes = [
         ("name", #text(name)),
-        ("zipCode", #text(zipCode))
+        ("displayName", #text(displayName))
       ]
     })
   };
 
   type User = {
     name: Text;
-    zipCode: Text;
+    displayName: Text;
   };
 
   // attempts to cast an Entity (retrieved from CanDB) into a User type
   func unwrapUser(entity: Entity.Entity): ?User {
     let { sk; attributes } = entity;
     let nameValue = Entity.getAttributeMapValueForKey(attributes, "name");
-    let zipCodeValue = Entity.getAttributeMapValueForKey(attributes, "zipCode");
+    let displayNameValue = Entity.getAttributeMapValueForKey(attributes, "displayName");
 
-    switch(nameValue, zipCodeValue) {
+    switch(nameValue, displayNameValue) {
       case (
         ?(#text(name)),
-        ?(#text(zipCode))
-      ) { ?{ name; zipCode } };
+        ?(#text(displayName))
+      ) { ?{ name; displayName } };
       case _ { 
         null 
       }

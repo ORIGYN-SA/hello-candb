@@ -5,20 +5,22 @@ import { initializeHelloServiceClient, intializeIndexClient } from "./client";
 const isLocal = true;
 const indexClient = intializeIndexClient(isLocal);
 const helloServiceClient = initializeHelloServiceClient(isLocal, indexClient);
-const regionOptions = {
-  na: { value: "na", label: "North America" },
-  eu: { value: "eu", label: "Europe" },
-  asia: { value: "asia", label: "Asia" }
+type GroupType = 'eightyr' | 'dev' | 'icmaxi' 
+const groupOptions = {
+  eightyr: { value: "eightyr", label: "8 Year Gang" },
+  dev: { value: "dev", label: "IC Developer/Creator" },
+  icmaxi: { value: "icmaxi", label: "ICP Maximalist" }
 }
 
 export default function App() {
   let [greetName, setGreetName] = React.useState("");
   let [name, setName] = React.useState("");
-  let [zipCode, setZipCode] = React.useState("");
+  let [displayName, setDisplayName] = React.useState("");
   let [greetingResponse, setGreetingResponse] = React.useState("");
   let [greetErrorText, setGreetErrorText] = React.useState("");
   let [createErrorText, setCreateErrorText] = React.useState("");
-  let [region, setRegion] = React.useState(regionOptions.na);
+  let [group, setGroup] = React.useState(groupOptions.eightyr);
+  let [successText, setSuccessText] = React.useState("");
 
   async function getUserGreeting() {
     if (greetName === "") {
@@ -27,23 +29,24 @@ export default function App() {
       setGreetErrorText(errorText)
     } else {
       setGreetErrorText("");
-      let greeting = await greetUser(helloServiceClient, region.value, greetName)
+      let greeting = await greetUser(helloServiceClient, group.value, greetName)
       console.log("response", greeting)
       setGreetingResponse(greeting);
     }
   }
 
   async function createUser() {
-    if (name === "" || zipCode == "") {
-      let errorText = "must enter a name and a zipCode for user";
+    if (name === "" || displayName == "") {
+      let errorText = "must enter a name and a displayName for user";
       console.error(errorText);
       setCreateErrorText(errorText)
     } else {
       setCreateErrorText("");
       // create the canister for the partition key if not sure that it exists
-      await indexClient.indexCanisterActor.createHelloServiceCanisterByRegion(region.value);
+      await indexClient.indexCanisterActor.createHelloServiceCanisterByGroup(group.value);
       // create the new user
-      putUser(helloServiceClient, region.value, name, zipCode);
+      await putUser(helloServiceClient, group.value, name, displayName);
+      setSuccessText(`${name} successfully inserted`)
     }
   }
 
@@ -51,19 +54,27 @@ export default function App() {
     <div className="flex-center">
       
       <div className="section-wrapper">
-        <h1>Hello world!</h1>
+        <h1>Hello CanDB!</h1>
+        <p>Below is a sample CanDB app in which one can create users in separate "groups". 
+          <br/><br/>
+          To accomplish this, a unique <b>partition key</b> (PK) is used in order to <span className="partition-highlight">partition</span>, or separate the data associated with each unique "group" name. 
+          <br/><br/>
+          Creating a user inserts it into the currently selected group <span className="partition-highlight">partition</span>, and getting a user fetches it from the currently selected group partition.
+        </p>
+        <hr/>
+
         <div className="flex-wrapper">
-          <div>Region partition key is: {region.label}. To change, select {"->"} </div>
-          <select className="left-margin" onChange={(e) => setRegion(regionOptions[e.target.value as 'na' | 'eu' | 'asia'])}>
-            {Object.values(regionOptions).map(createOption)}
+          <div>Selected Group (<span className="partition-highlight">Partition</span>):</div> 
+          <select className="left-margin" onChange={(e) => setGroup(groupOptions[e.target.value as GroupType])}>
+            {Object.values(groupOptions).map(createOption)}
           </select>
         </div>
       </div>
 
       <div className="section-wrapper">
-        <h2>Get a User from {region.label} (that was already created)</h2>
+        <h2>Get a User from the {group.label} group</h2>
         <div className="flex-wrapper">
-          <div className="prompt-text">Set username to greet</div>
+          <div className="prompt-text">Set username to greet:</div>
           <input
             className="margin-left"
             value={greetName}
@@ -71,30 +82,35 @@ export default function App() {
           />
           <button className="left-margin" type="button" onClick={getUserGreeting}>Get user greeting</button>
         </div>
-        <div>Greeting response: {greetingResponse}</div>
-        <div>{greetErrorText}</div>
+        <div className="flex-wrapper">
+          <div className="prompt-text">Greeting response:</div>
+          <div>{greetingResponse}</div>
+          <div>{greetErrorText}</div>
+        </div>
       </div>
 
       <div className="section-wrapper">
-        <h2>Create a User in {region.label} (the current region partition)</h2>
+        <h2>Create a User in {group.label} group</h2>
         <div className="flex-wrapper">
-          <div className="prompt-text">Set username to create</div>
+          <div className="prompt-text">Set username to create:</div>
           <input
             value={name}
             onChange={ev => setName(ev.target.value)}
           />
         </div>
         <div className="flex-wrapper">
-          <div className="prompt-text">Set zipCode for username</div>
+          <div className="prompt-text">Set displayName:</div>
           <input
-            value={zipCode}
-            onChange={ev => setZipCode(ev.target.value)}
+            value={displayName}
+            onChange={ev => setDisplayName(ev.target.value)}
           />
         </div>
-        <button type="button" onClick={createUser}>Create username</button>
+        <div className="flex-wrapper">
+          <button type="button" onClick={createUser}>Create username</button>
+          <div className="left-margin">{successText}</div>
+          <div>{createErrorText}</div>
+        </div>
       </div>
-
-      <div>{createErrorText}</div>
 
     </div>
   )
