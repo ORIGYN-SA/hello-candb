@@ -6,6 +6,7 @@ import Text "mo:base/Text";
 
 import CA "mo:candb/CanisterActions";
 import CanisterMap "mo:candb/CanisterMap";
+import Utils "mo:candb/Utils";
 import Buffer "mo:stable-buffer/StableBuffer";
 import HelloService "../helloservice/HelloService";
 
@@ -35,18 +36,13 @@ shared ({caller = owner}) actor class IndexCanister() = this {
     }
   };
 
-  /// @modify and @required (Do not delete or change the API, but must change/modify the function logic for your given application actor and data model)
-  ///
-  /// This is method is called by CanDB for AutoScaling. It is up to the developer to specify which
-  /// PK prefixes should spin up which canister actor.
-  ///
-  /// If the developer does not utilize this method, auto-scaling will NOT work
-  public shared({caller = caller}) func createAdditionalCanisterForPK(pk: Text): async Text {
-    if (Text.startsWith(pk, #text("group"))) {
+  public shared({caller = caller}) func autoScaleHelloServiceCanister(pk: Text): async Text {
+    // Auto-Scaling Authorization - if the request to auto-scale the partition is not coming from an existing canister in the partition, reject it
+    if (Utils.callingCanisterOwnsPK(caller, pkToCanisterMap, pk)) {
       Debug.print("creating an additional canister for pk=" # pk);
       await createHelloServiceCanister(pk, ?[owner, Principal.fromActor(this)])
     } else {
-      throw Error.reject("creation of additional canister case not covered");
+      throw Error.reject("not authorized");
     };
   };
 
@@ -73,7 +69,7 @@ shared ({caller = owner}) actor class IndexCanister() = this {
     let newHelloServiceCanister = await HelloService.HelloService({
       partitionKey = pk;
       scalingOptions = {
-        autoScalingCanisterId = Principal.toText(Principal.fromActor(this));
+        autoScalingHook = autoScaleHelloServiceCanister;
         sizeLimit = #heapSize(200_000_000); // Scale out at 200MB
         // for auto-scaling testing
         //sizeLimit = #count(3); // Scale out at 3 entities inserted
