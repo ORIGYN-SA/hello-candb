@@ -1,9 +1,9 @@
 {
-  "name": "candb-actor-template",
-  "version": "1.1.0",
+  "name": "hello-candb",
+  "version": "0.0.0-alpha.3",
   "description": "",
   "scripts": {
-    "generate": "node tools/generate.js",
+    "generate-actor": "node tools/generate_actor.js",
     "generate-declarations": "dfx generate && ./comment_last_line.sh",
     "copy-declarations": "rm -rf frontend/declarations && cp -r src/declarations frontend/declarations",
     "refresh-declarations": "npm run generate-declarations && npm run copy-declarations"
