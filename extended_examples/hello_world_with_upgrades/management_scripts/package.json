@@ -1,0 +1,19 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "Example node scripts for managing a CanDB application",
+  "main": "index.js",
+  "scripts": {
+    "upgrade": "npx ts-node src/upgrade.ts",
+    "delete": "npx ts-node src/delete.ts"
+  },
+  "author": "Byron Becker",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.8.2",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "candb-client-typescript": "^0.0.0-alpha.0"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "canisters": {
+    "index": {
+      "type": "motoko",
+      "main": "src/index/IndexCanister.mo"
+    },
+    "helloservice": {
+      "type": "motoko",
+      "main": "src/helloservice/HelloService.mo"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": "vessel sources",
+      "args": ""
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  }
+}

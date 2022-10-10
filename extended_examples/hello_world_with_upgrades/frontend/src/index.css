@@ -1,0 +1,78 @@
+
+body {
+  font-family: 'Roboto';
+}
+
+h1 {
+  width: fit-content;
+  margin: 0 auto 30px;
+}
+
+hr {
+  margin: 30px 0 60px;
+  color: blue;
+}
+
+p {
+  line-height: 150%;
+}
+
+.section-wrapper {
+  width: 680px;
+  margin: 50px auto;
+}
+
+.flex-wrapper {
+  display: flex;
+  justify-content: left;
+  margin: 10px 0px;
+  width: 680px;
+}
+
+.prompt-text {
+  width: 200px;
+}
+
+.left-margin {
+  margin-left: 15px;
+}
+
+button {
+  width: 170px;
+  margin-right: 20px;
+  height: 35px;
+  background-color: rgb(188, 224, 236);
+  box-shadow: 0px;
+  border: 1px solid #585757;
+  border-radius: 4px;
+  color: #413f3f;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
+
+select {
+  width: 200px;
+  height: 35px;
+  padding-left: 8px;
+  font-weight: 600;
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+select:hover {
+  background-color: #f9f6f6;
+  border-color: darkgrey;
+}
+
+.partition-highlight {
+  color: blue;
+  font-weight: bold;
+}

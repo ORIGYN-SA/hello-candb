@@ -1,6 +1,6 @@
 {
   "name": "hello-candb",
-  "version": "0.0.0-alpha.3",
+  "version": "0.0.0-alpha.4",
   "description": "",
   "scripts": {
     "generate-actor": "node tools/generate_actor.js",
