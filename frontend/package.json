@@ -30,7 +30,7 @@
     "webpack-dev-server": "^4.9.2"
   },
   "dependencies": {
-    "candb-client-typescript": "^0.0.0-alpha.0",
+    "candb-client-typescript": "^0.0.0-alpha.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   }
