@@ -1,3 +1,5 @@
+![Horizontal_logo](https://user-images.githubusercontent.com/17368530/196894029-c2e9fefa-8ffb-47cb-8fb6-4dbb351c0529.png)
+
 # Hello, CanDB!
 
 A collection of "Hello, World" type of examples using CanDB.
