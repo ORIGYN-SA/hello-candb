@@ -1,10 +1,10 @@
 {
   "name": "hello-candb-with-upgrades",
-  "version": "0.0.0-alpha.5",
+  "version": "0.0.0-alpha.7",
   "description": "",
   "scripts": {
     "generate-actor": "node tools/generate_actor.js",
-    "generate-declarations": "dfx generate && ./comment_last_line.sh",
+    "generate-declarations": "dfx generate",
     "remove-previous-declarations": "rm -rf frontend/declarations && rm -rf management_scripts/declarations",
     "copy-declarations": "cp -r src/declarations frontend/declarations && cp -r src/declarations management_scripts/declarations",
     "refresh-declarations": "npm run generate-declarations && npm run remove-previous-declarations && npm run copy-declarations"
