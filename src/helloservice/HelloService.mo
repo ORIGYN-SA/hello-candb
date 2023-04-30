@@ -14,6 +14,7 @@ shared ({ caller = owner }) actor class HelloService({
   stable let db = CanDB.init({
     pk = partitionKey;
     scalingOptions = scalingOptions;
+    btreeOrder = null;
   });
 
   /// @recommended (not required) public API
@@ -53,7 +54,7 @@ shared ({ caller = owner }) actor class HelloService({
     if (name == "" or displayName == "") { return };
 
     // inserts the entity into CanDB
-    await CanDB.put(db, {
+    await* CanDB.put(db, {
       sk = name;
       attributes = [
         ("name", #text(name)),
