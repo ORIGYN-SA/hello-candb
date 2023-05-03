@@ -3,16 +3,21 @@
   "canisters": {
     "index": {
       "type": "motoko",
-      "main": "src/index/IndexCanister.mo"
+      "main": "src/index/IndexCanister.mo",
+      "declarations": {
+        "node_compatibility": true
+      }
     },
     "helloservice": {
       "type": "motoko",
-      "main": "src/helloservice/HelloService.mo"
+      "main": "src/helloservice/HelloService.mo",
+      "declarations": {
+        "node_compatibility": true
+      }
     }
   },
   "declarations": {
-    "output": "src/declarations",
-    "node_compatibility": "true"
+    "output": "src/declarations"
   },
   "defaults": {
     "build": {
