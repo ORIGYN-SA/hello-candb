@@ -7,7 +7,7 @@ A collection of "Hello, World" type of examples using CanDB.
 
 # Getting Started
 
-At the root of this repository is a simple Hello-World project example for setting up CanDB. [Accompanying walkthrough documentation link](https://docs.google.com/document/d/1vCrJHTEw3co3nHWNUDvKPy5N2mI2v83_Rbo-eSx6aHQ)
+At the root of this repository is a simple Hello-World project example for setting up CanDB. [Accompanying walkthrough documentation link](https://ykgs2-ziaaa-aaaak-qcfya-cai.icp0.io/docs/tutorial-basics/hello-candb)
 
 ## Examples
 

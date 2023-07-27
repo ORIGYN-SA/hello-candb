@@ -8,7 +8,7 @@ import Admin "mo:candb/CanDBAdmin";
 import CA "mo:candb/CanisterActions";
 import CanisterMap "mo:candb/CanisterMap";
 import Utils "mo:candb/Utils";
-import Buffer "mo:stable-buffer/StableBuffer";
+import Buffer "mo:stablebuffer/StableBuffer";
 import HelloService "../helloservice/HelloService";
 
 

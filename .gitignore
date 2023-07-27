@@ -1,5 +1,6 @@
 .dfx
 .vessel
+.mops
 node_modules
 declarations
 dist
