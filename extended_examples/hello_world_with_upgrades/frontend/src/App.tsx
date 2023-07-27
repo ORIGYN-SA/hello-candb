@@ -54,7 +54,7 @@ export default function App() {
     <div className="flex-center">
       
       <div className="section-wrapper">
-        <h1>Hello CanDB!</h1>
+        <h1>Hello CanDB...with upgrades!</h1>
         <p>Below is a sample CanDB app in which one can create users in separate "groups". 
           <br/><br/>
           To accomplish this, a unique <b>partition key</b> (PK) is used in order to <span className="partition-highlight">partition</span>, or separate the data associated with each unique "group" name. 

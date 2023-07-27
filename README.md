@@ -14,4 +14,4 @@ At the root of this repository is a simple Hello-World project example for setti
 In the examples folder, you can find some extended example for those wishing to :
 
 * hello_world_with_upgrades - The simple_hello_world example project plus scripts for managing partition upgrades and deletion
-  * [Accompanying walkthough documentation link](https://docs.google.com/document/d/1lEzMtAnM7ac8dE8zLZ_SE7a5jxgcZpC_XeUz2SK3WQ8)
+  * [Accompanying walkthough documentation link](https://ykgs2-ziaaa-aaaak-qcfya-cai.icp0.io/docs/tutorial-basics/hello-candb-with-upgrades)
